@@ -1,3 +1,14 @@
 from django.db import models
+from cloudinary.models import CloudinaryField
+import datetime as dt
+from django.contrib.auth.models import User
+from django.db.models.fields import related
 
 # Create your models here.
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE,null=True)
+    profile_picture = CloudinaryField('image')
+    bio = models.TextField(max_length=500,  null=True)
+    email = models.EmailField(null=True)
+    contact = models.CharField(max_length=50, blank=True, null=True)  
