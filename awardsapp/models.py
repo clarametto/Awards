@@ -67,4 +67,36 @@ class Project(models.Model):
         self.description = description
         self.save()
 
-    
+    # get all images
+    @classmethod
+    def get_all_project(cls):
+        today = dt.date.today()
+        images = Project.objects.all(post_date__date = today)
+        return images
+
+    @classmethod
+    def search_project_name(cls, search_term):
+        images = cls.objects.filter(
+        title__icontains=search_term)
+        return images
+
+    def _str_(self):
+        return self.user.username
+
+    @classmethod
+    def get_single_project(cls, id):
+        image = cls.objects.get(id=id)
+        return image
+
+    def _str_(self):
+        return self.title 
+
+class Rating(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    design = models.IntegerField(default=0, blank=True, null=True)
+    usability = models.IntegerField(default=0, blank=True, null=True)
+    content = models.IntegerField(default=0, blank=True, null=True)
+    average = models.IntegerField(default=0, blank=True, null=True)
+    def __str__(self):
+        return self.user.username
