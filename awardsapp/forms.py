@@ -9,5 +9,10 @@ class ProfileForm(ModelForm):
         model = Profile
         exclude = ['user','email']
 
+class UpdateProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['profile_picture','bio','contact']
+
 
 
