@@ -23,7 +23,7 @@ def index(request):
 def profile(request):
     current_user = request.user
     profile = Profile.objects.filter(user_id=current_user.id).first()
-    
+
     # project = Project.objects.filter(user_id=current_user.id).all()
 
     return render(request, "profile.html", {"profile": profile})
@@ -87,11 +87,6 @@ def search(request):
 def project_details(request, project_id):
     project = Project.objects.get(id=project_id)
     return render(request, "project.html", {"project": project })
-
-
-
-
-
 
 @login_required(login_url="/accounts/login/")
 def rating(request,id):
