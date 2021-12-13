@@ -30,4 +30,41 @@ class Profile(models.Model):
     def delete_profile(self):
         self.delete()
 
-  
+    @classmethod
+    def get_profile_by_user(cls, user):
+        profile = cls.objects.filter(user=user)
+        return profile
+
+    def __str__(self):
+        return self.user.username   
+
+class Project(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='images', null=True)
+    photo = CloudinaryField('image')
+    title = models.CharField(max_length=60)
+    description = models.TextField()
+    category = models.ForeignKey(Category, on_delete=models.CASCADE,null=True)
+    location = models.ForeignKey(Location, on_delete=models.CASCADE,null=True)
+    project_url = models.URLField(max_length=80, null=True)
+    post_date = models.DateTimeField(auto_now_add=True,null=True) 
+
+    def __str__(self):
+        return self.title
+    def save_project(self):
+        self.save()
+
+        # delete image
+    def delete_project(self):
+        self.delete()
+
+    @classmethod
+    def get_project_by_user(cls, user):
+        images = cls.objects.filter(user=user)
+        return images
+
+    def update_project(self, title, description):
+        self.title = title
+        self.description = description
+        self.save()
+
+    
