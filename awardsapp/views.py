@@ -9,6 +9,14 @@ from django.http.response import Http404, HttpResponseRedirect
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
+from awardsapp.models import Profile
+from rest_framework import serializers
+from rest_framework.views import APIView
+from .permissions import IsAdminOrReadOnly
+from awardsapp import serializer
+from django.http import HttpResponseRedirect, Http404
+from .serializer import ProfileSerializer, ProjectSerializer
+from rest_framework.response import Response
 
 # Create your views here.
 
@@ -86,24 +94,35 @@ def search(request):
 
 def project_details(request, project_id):
     project = Project.objects.get(id=project_id)
-    return render(request, "project.html", {"project": project })
+    rating = Rating.objects.filter(project=project)
+    return render(request, "project.html", {"project": project, 'rating':rating })
 
-@login_required(login_url="/accounts/login/")
-def rating(request,id):
+
+@login_required(login_url='/accounts/login/')
+def rate(request,id):
     if request.method == 'POST':
         project = Project.objects.get(id = id)
         current_user = request.user
-        design = request.POST['design']
-        content = request.POST['content']
-        usability = request.POST['content']
+        design_rate = request.POST['design']
+        content_rate = request.POST['content']
+        usability_rate = request.POST['usability']
         Rating.objects.create(
             project=project,
             user=current_user,
-            design=design,
-            usability=usability,
-            content=content,
-            average=round((float(design)+float(usability)+float(content))/3,2),)
-        return render(request, 'project.html',{'project':project})
+            design_rate=design_rate,
+            usability_rate=usability_rate,
+            content_rate=content_rate,
+            average=round((float(design_rate)+float(usability_rate)+float(content_rate))/3,2))
+        return render(request,"project.html",{"project":project})
     else:
         project = Project.objects.get(id = id)
-        return render(request, 'project.html',{'project':project})
+        return render(request,"project.html",{"project":project})
+
+class ProjectList(APIView):
+    permission_classes = (IsAdminOrReadOnly,)
+    def get(self,request,format=None):
+        projects = Project.objects.all()
+        serializer = ProjectSerializer(projects,many=True)
+        return Response(serializer.data)
+
+
