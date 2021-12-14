@@ -10,7 +10,6 @@ urlpatterns=[
     path('project/', views.upload_project, name = "upload"),
     path('search/', views.search, name='search'),
     path("project/<int:project_id>/", views.project_details, name="project_details"),
-    path('rate/<int:id>', views.rating, name='rate'),
-    
+    path("rate/<int:id>",views.rate, name='rate'),    
 ]
 
