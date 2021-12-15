@@ -12,12 +12,12 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 import os
 from pathlib import Path
-import django_heroku
-import dj_database_url
 from decouple import config,Csv
+import dj_database_url
 import cloudinary
 import cloudinary.uploader
-import cloudinary.api 
+import cloudinary.api
+import django_heroku 
 
 cloudinary.config(
     cloud_name = 'clarametto-com',
@@ -26,9 +26,10 @@ cloudinary.config(
     secure = 'True'
 )
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'clarametto-com',
-    'API_KEY': '252397854447761',
-    'API_SECRET':'CxFIrvQJ2kPuWALgaj6Rlespovc',
+    'CD_NAME':'clarametto-com',
+    'CD_API':'252397854447761',
+    'CD_SECRET':'CxFIrvQJ2kPuWALgaj6Rlespovc',
+    'CD_SECURE':'True',
 
 }
 
@@ -49,7 +50,6 @@ DEBUG = os.environ.get('DEBUG', True)
 DEBUG = True
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -102,7 +102,7 @@ WSGI_APPLICATION = 'awardsproject.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 DATABASES = {
        'default': {
-           'ENGINE': 'django.db.backends.postgresql_psycopg2',
+           'ENGINE': 'django.db.backends.postgresql',
            'NAME': config('DB_NAME'),
            'USER': config('DB_USER'),
            'PASSWORD': config('DB_PASSWORD'),
