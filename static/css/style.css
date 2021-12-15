@@ -1,0 +1,61 @@
+.card {
+    background: #fff none repeat scroll 0 0;
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 1px;
+    box-shadow: 0 0 11px 5px rgb(103 58 183 / 10%);
+    margin-bottom: 1px;
+    padding: 1px 1px;
+    transition: all 300ms ease-in-out;
+    -webkit-transition: all 300ms ease-in-out;
+}
+.card:hover {
+    box-shadow: 0 0 11px 5px rgba(70, 41, 121, 0.25);
+    background: linear-gradient(-19deg, rgba(235, 174, 8, 0.95) 0px);
+}
+.profile .card-img-top {
+    object-fit: cover;
+    max-height: 330px;
+    max-width: 400px;
+    border-radius: 15% !important;
+}
+
+.share {
+    position: relative;
+    margin-top:-25px;
+    margin-left: 80%;
+  }
+  .share-icon {
+    display: inline-block;
+    width: 48px;
+    height: 48px;
+    line-height: 48px;
+    text-align: center;
+    border-radius: 50%;
+    background-color: white;
+    transition: all 0.3s ease;
+    outline: 0;
+    font-size: 1.5rem;
+    box-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.12),
+        0 2px 4px rgba(0, 0, 0, 0.24);
+  }
+
+#rates{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    padding: 0 10%;
+    background-color: bisque;
+  }
+
+.details, .titles{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+    padding-bottom: 3rem;
+  }
+.fit{
+    color: aqua;
+}
