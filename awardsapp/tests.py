@@ -58,3 +58,14 @@ class ProjectTestClass(TestCase):
         self.project.delete_project()
         projects = Project.objects.all()
         self.assertTrue(len(projects) == 0)
+    
+class RatingTestClass(TestCase):
+    def setUp(self):
+        user = User.objects.create(
+            username="test_user", first_name="clara", last_name="metto"
+        )
+        self.rating = Rating(
+            user=user,
+        )
+    def test_instance(self):
+        self.assertTrue(isinstance(self.rating, Rating))
