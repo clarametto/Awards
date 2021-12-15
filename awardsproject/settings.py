@@ -20,11 +20,20 @@ import cloudinary.uploader
 import cloudinary.api 
 
 cloudinary.config(
-    cloud_name = config('CD_NAME'),
-    api_key= config('CD_API'),
-    api_secret=config('CD_SECRET'),
-    secure = config('CD_SECURE')
+    cloud_name = 'clarametto-com',
+    api_key='252397854447761',
+    api_secret='CxFIrvQJ2kPuWALgaj6Rlespovc',
+    secure = 'True'
 )
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'clarametto-com',
+    'API_KEY': '252397854447761',
+    'API_SECRET':'CxFIrvQJ2kPuWALgaj6Rlespovc',
+
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -39,8 +48,7 @@ DEBUG = os.environ.get('DEBUG', True)
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 # Application definition
 
@@ -102,6 +110,9 @@ DATABASES = {
        }
        
    }
+   
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
 
 
 
