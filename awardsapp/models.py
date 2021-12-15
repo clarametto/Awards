@@ -5,14 +5,7 @@ from django.contrib.auth.models import User
 from django.db.models.fields import related
 
 # Create models here.
-class Category(models.Model):
-    name = models.CharField(max_length =30)
-    def __str__(self):
-        return self.name
-class Location(models.Model):
-    name = models.CharField(max_length =30)
-    def __str__(self):
-        return self.name
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE,null=True)
@@ -42,9 +35,9 @@ class Project(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='images', null=True)
     photo = CloudinaryField('image')
     title = models.CharField(max_length=60)
-    description = models.TextField()
-    category = models.ForeignKey(Category, on_delete=models.CASCADE,null=True)
-    location = models.ForeignKey(Location, on_delete=models.CASCADE,null=True)
+    description = models.TextField(max_length=2000, null=True)
+    category = models.CharField(max_length=20, null=True)
+    location = models.CharField(max_length=20, null=True)    
     project_url = models.URLField(max_length=80, null=True)
     post_date = models.DateTimeField(auto_now_add=True,null=True) 
 
