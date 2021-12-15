@@ -1,0 +1,39 @@
+{%extends 'base.html'%}
+{% block content %}
+{{block.super}}
+<section class="" id="">
+    <div class="container mt-5">
+        <div class="row mt-4" id="">
+            {% for pics in images %}
+            <div class="col-md-6 " id="" style="gap: 15px;">
+                <div class="card mb-4" id="" style="width: auto;height: fit-content;margin: 10px;padding: 5px;">
+                    <a href="{% url 'project_details' pics.id %}">
+                        <img src="{{ pics.photo.url }}"
+                        class="card-img-top " alt="Project" style="object-fit: cover;height: 260px;"></a>
+                    
+                    <div class="card-body ">
+                        <p class="fade-item mb-2">{{ pics.title }}</p>
+                        <div class="d-flex justify-content-between location-date">
+                            <div>
+                                <p class="text-capitalise">{{ pics.location }}</p>
+                            </div>
+                            <div>
+                                <p>{{ pics.post_date|date}}</p>
+                                <p>{{ pics.user.bio}}</p>
+
+                                <a href="{{ pics.url }}"><button  class="btn btn-info">link</button></a>
+                            </div>
+                        </div>
+                        <!-- <img src="{{ user.profile_photo.url }}"class="card-img-top responsive" alt="Personal">
+                        <p>{{user.username}}</p> -->
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+           
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+

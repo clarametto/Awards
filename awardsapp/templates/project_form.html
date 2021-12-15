@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% block content %}
+<div class="col-md-6">
+    <div id="reg">
+        <div class="form-data">
+            <form action="{%url 'upload'%}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <h3 class="intro">Upload a picture</h3>
+                {% bootstrap_form form%}
+                <button class="btn btn-warning" type="submit">Upload</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

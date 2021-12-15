@@ -1,0 +1,80 @@
+{%extends 'base.html'%}
+ {% block content %}
+ <div class="container-fluid">
+  <div class="row">
+      <div class="col-md-12">
+              {% if project.photo %}
+              <img src="{{project.photo.url}}" alt="" class="card-img-top" style="height: 60vh; object-fit: cover;">
+              {% endif %}
+              <div class="">
+                <a id="" class="share-icon" href="{{project.url}}" target="_blank"><i class="fa fa-share"></i></a>
+              </div>
+              <div class="card-body text-center">
+                <h5 class="card-title">Project Name: {{project.project_name}}</h5>
+                <p>About: {{ project.description }}</p>
+                <p>Category: {{project.category}}</p>
+                <p>Location: {{project.location}}</p>
+              </div>
+              <div class="card-footer">
+                <small class="text-muted">By: {{user.username}}</small>
+              </div>
+      </div>
+  </div>
+
+  <div class="col-md-4">
+    <h3 class=""><u>Rate This Project</u></h3>
+    <form action="{%url 'rate' project.id %}" method="post">
+      {% csrf_token %}
+      <div class="mb-3">
+      <label for="Design">Design</label>
+      <input type="number" class="form-control" name="design" min="0"max="10" value="0">
+      </div>
+      <div class="mb-3">
+        <label for="Content">Content</label>
+        <input type="number" class="form-control" name="content" min="0"max="10" value="0">
+      </div>
+      <div class="mb-3">
+          <label for="Usability">Usability</label>
+          <input type="number" class="form-control" name="usability" min="0"max="10" value="0">
+      </div>
+      <button class="btn btn-warning btn-sm" type="submit">Rate</button>
+    </form>
+  </div>
+</div>
+</div>
+<br><br>
+<div class="row card p-3">
+  {% for rate in rating %}
+  <div class="col-md-12">
+          <div>
+              <div class="d-flex justify-content-center text-center" style="display: flex; align-items: center; justify-content: space-evenly; gap: 40px;">
+                  <div class="m-1">
+                      <a class="btn btn-design"><span class="text-dark">{{ rate.design_rate  }}</span></a> <br>
+                      <span>Design</span>
+                  </div>
+                  <div class="m-1">
+                      <a class="btn btn-usability"><span class="text-dark">{{ rate.usability_rate }}</span></a> <br>
+                      <span>Usability</span>
+                  </div>
+                  <div class="m-1">
+                      <a class="btn btn-content"><span class="text-dark">{{ rate.content_rate}}</span></a> <br>
+                      <span>Content</span>
+                  </div>
+                  <div class="m-1 average">
+                      <a class="btn btn-content"><span class="text-dark">{{ rate.average}}</span></a> <br>
+                      <span>Average</span>
+                  </div>
+              </div>
+          </div>
+      
+  </div>
+  <hr>
+  {% empty %}
+  <div class="col-md-12 text-center not-found">
+      <i class="fa fa-exclamation"></i>
+      <p>No votes yet!</p>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}
+
